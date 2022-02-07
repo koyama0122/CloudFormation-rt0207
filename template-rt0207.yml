@@ -76,7 +76,7 @@ Resources:
           Value: PublicSubnet1c-rt0207
 
   # プライベートサブネット定義
-  PrivateSubnetForLive1a:
+  PrivateSubnet1a-rt0207:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1a
@@ -86,7 +86,7 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateSubnet1a-rt0207
-  PrivateSubnetForLive1c:
+  PrivateSubnet1c-rt0207:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1c
@@ -139,7 +139,7 @@ Resources:
           FromPort: -1
           IpProtocol: -1
           ToPort: -1
-      VpcId: !Ref VpcForLive
+      VpcId: !Ref Vpc-rt0207
       Tags:
         - Key: Name
           Value: RDSSecurityGroup-rt0207
