@@ -27,7 +27,7 @@ Parameters:
 # Resourcesセクション
 Resources:
   # VPC定義
-  Vpc-rt0207:
+  VpcRT0207:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR
@@ -36,72 +36,72 @@ Resources:
       InstanceTenancy: default
       Tags:
         - Key: Name
-          Value: Vpc-rt0207
+          Value: VpcRT0207
 
   # インターネットゲートウェイ定義
-  InternetGateway-rt0207:
+  InternetGatewayRT0207:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: InternetGateway-rt0207
+          Value: InternetGatewayRT0207
 
   # インターネットゲートウェイ-VPC関連付け定義
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
-      InternetGatewayId: !Ref InternetGateway-rt0207
-      VpcId: !Ref Vpc-0207
+      InternetGatewayId: !Ref InternetGatewayRT0207
+      VpcId: !Ref VpcRT0207
 
   # パブリックサブネット定義
-  PublicSubnet1a-rt0207:
+  PublicSubnet1aRT0207:
     Type: AWS::EC2::Subnet
     Properties:
-      AvailabilityZone: ap-northeast-1a
+      AvailabilityZone: ap-northeast_1a
       CidrBlock: !Ref PublicSubnet1aCIDR
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: PublicSubnet1a-rt0207
-  PublicSubnet1c-rt0207:
+          Value: PublicSubnet1aRT0207
+  PublicSubnet1cRT0207:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1c
       CidrBlock: !Ref PublicSubnet1cCIDR
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: PublicSubnet1c-rt0207
+          Value: PublicSubnet1cRT0207
 
   # プライベートサブネット定義
-  PrivateSubnet1a-rt0207:
+  PrivateSubnet1aRT0207:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: !Ref PrivateSubnet1aCIDR
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: PrivateSubnet1a-rt0207
-  PrivateSubnet1c-rt0207:
+          Value: PrivateSubnet1aRT0207
+  PrivateSubnet1cRT0207:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1c
       CidrBlock: !Ref PrivateSubnet1cCIDR
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: PrivateSubnet1c-rt0207
+          Value: PrivateSubnet1cRT0207
 
   # セキュリティグループ定義
-  SecurityGroup-rt0207:
+  SecurityGroupRT0207:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: SecurityGroup-rt0207
+      GroupName: SecurityGroupRT0207
       SecurityGroupIngress:
         - CidrIp: !Ref AllCIDR
           Description: inbound for ssh
@@ -119,14 +119,14 @@ Resources:
           FromPort: -1
           IpProtocol: -1
           ToPort: -1
-      VpcId: !Ref VpcForLive
+      VpcId: !Ref VpcRT0207
       Tags:
         - Key: Name
-          Value: SecurityGroup-rt0207
-  RDSSecurityGroup-rt0207:
+          Value: SecurityGroupRT0207
+  RDSSecurityGroupRT0207:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: RDSSecurityGroup-rt0207
+      GroupName: RDSSecurityGroupRT0207
       SecurityGroupIngress:
         - CidrIp: !Ref AllCIDR
           Description: inbound for mysql
@@ -139,56 +139,56 @@ Resources:
           FromPort: -1
           IpProtocol: -1
           ToPort: -1
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       Tags:
         - Key: Name
-          Value: RDSSecurityGroup-rt0207
+          Value: RDSSecurityGroupRT0207
 
   # ルートテーブル定義
-  PublicRouteTable-rt0207:
+  PublicRouteTableRT0207:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !Ref Vpc-rt0207
+      VpcId: !Ref VpcRT0207
       Tags:
         - Key: Name
-          Value: PublicRouteTable-rt0207
-  DefaultPublicRouteTable-rt0207:
+          Value: PublicRouteTableRT0207
+  DefaultPublicRouteTableRT0207:
     Type: AWS::EC2::Route
     DependsOn: InternetGatewayAttachment
     Properties:
-      RouteTableId: !Ref PublicRouteTable-rt0207
+      RouteTableId: !Ref PublicRouteTableRT0207
       DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref InternetGateway-rt0207
-  PublicSubnet1RouteTableAssociation-rt0207:
+      GatewayId: !Ref InternetGatewayRT0207
+  PublicSubnet1RouteTableAssociationRT0207:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref PublicRouteTable-rt0207
-      SubnetId: !Ref PublicSubnet1a-rt0207
-  PublicSubnet2RouteTableAssociation-rt0207:
+      RouteTableId: !Ref PublicRouteTableRT0207
+      SubnetId: !Ref PublicSubnet1aRT0207
+  PublicSubnet2RouteTableAssociationRT0207:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref PublicRouteTable-rt0207
-      SubnetId: !Ref PublicSubnet1c-rt0207
+      RouteTableId: !Ref PublicRouteTableRT0207
+      SubnetId: !Ref PublicSubnet1cRT0207
 
   # EIP定義
-  EIP-rt0207:
+  EIPRT0207:
     Type: AWS::EC2::EIP
     Properties:
       Domain: vpc
       Tags:
         - Key: Name
-          Value: EIP-rt0207
+          Value: EIPRT0207
 
   #EIP-EC2関連定義
-  EIPToEC2-rt0207:
+  EIPToEC2RT0207:
     Type: AWS::EC2::EIPAssociation
     Properties:
-      EIP: !Ref EIP-rt0207
-      InstanceId: !Ref EC2-1a-rt0207
+      EIP: !Ref EIPRT0207
+      InstanceId: !Ref EC21aRT0207
 
 
   # EC2インスタンス定義
-  EC2-1a-rt0207:
+  EC21aRT0207:
     Type: AWS::EC2::Instance
     Properties:
       DisableApiTermination: false
@@ -198,15 +198,15 @@ Resources:
       KeyName: key-pair-01
       Monitoring: false
       SecurityGroupIds:
-        - !Ref SecurityGroup-rt0207
+        - !Ref SecurityGroupRT0207
       SourceDestCheck: true
-      SubnetId: !Ref PublicSubnet1a-rt0207
+      SubnetId: !Ref PublicSubnet1aRT0207
       Tags:
         - Key: Name
-          Value: EC2-1a-rt0207
+          Value: EC21aRT0207
       Tenancy: default
 
-  EC2-1c-rt0207:
+  EC21cRT0207:
     Type: AWS::EC2::Instance
     Properties:
       DisableApiTermination: false
@@ -216,16 +216,16 @@ Resources:
       KeyName: key-pair-01
       Monitoring: false
       SecurityGroupIds:
-        - !Ref SecurityGroup-rt0207
+        - !Ref SecurityGroupRT0207
       SourceDestCheck: true
-      SubnetId: !Ref PublicSubnet1c-rt0207
+      SubnetId: !Ref PublicSubnet1cRT0207
       Tags:
         - Key: Name
-          Value: EC2-1a-rt0207
+          Value: EC21cRT0207
       Tenancy: default
 
   # RDS定義
-  RDS-rt0207:
+  RDSRT0207:
     Type: AWS::RDS::DBInstance
     Properties:
       AllocatedStorage: 20
@@ -234,8 +234,8 @@ Resources:
       AvailabilityZone: ap-northeast-1a
       DBInstanceClass: db.t2.micro
       VPCSecurityGroups:
-        - !Ref RDSSecurityGroup-rt0207
-      DBSubnetGroupName: !Ref RDSSubnetGroup-rt0207
+        - !Ref RDSSecurityGroupRT0207
+      DBSubnetGroupName: !Ref RDSSubnetGroupRT0207
       DeleteAutomatedBackups: false
       DeletionProtection: false
       EnableIAMDatabaseAuthentication: false
@@ -251,17 +251,17 @@ Resources:
       StorageType: standard
       Tags:
         - Key: Name
-          Value: RDS-rt0207
+          Value: RDS_rt0207
       UseDefaultProcessorFeatures: true
 
   # RDSサブネットグループ定義
-  RDSSubnetGroup-rt0207:
+  RDSSubnetGroupRT0207:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupName: RDSSubnetGroup-rt0207
+      DBSubnetGroupName: RDSSubnetGroupRT0207
       SubnetIds:
-        - !Ref PrivateSubnet1a-rt0207
-        - !Ref PrivateSubnet1c-rt0207
+        - !Ref PrivateSubnet1aRT0207
+        - !Ref PrivateSubnet1cRT0207
       Tags:
         - Key: Name
-          Value: RDSSubnetGroup-rt0207
+          Value: RDSSubnetGroupRT0207
